@@ -11,22 +11,17 @@
       socket.on('chatMessage', function (msg) {
         $('#messages').append($('<li>').text(msg));
       });
-      socket.on('fetchChat', function (msg) {
-        for(let i in msg) {
-          $('#messages').append($('<li>').text("Chat room"+i))
-            console.log(msg[i])
-          for(let l = 0;l<msg[i].length;l++) {
-            $('#messages').append($('<li>').text(msg[i][l]['payload']))
-          }
-        }
-        
+      socket.on('fetchChat', function (data) {
+          $('#messages').append($('<li>').text("Chat room"+ data['cId']))
+          for(let i=0;i<data['msgs'].length;i++)
+            $('#messages').append($('<li>').text(data['msgs'][i]['payload']))
       });
       $("#fetchChat").click(
         function () {
-          socket.emit('fetchChat', {
-            cIds:[1,2], 
-            timestamps:[0,10]
-          })
+          socket.emit('fetchChat', [
+            {cId: 1, timestamp:2},
+            {cId:2, timestamp:0}
+        ])
         }
       )
       $("#chatMessage").click(
