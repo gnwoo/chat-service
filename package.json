@@ -4,6 +4,8 @@
   "description": "chat service, forward chat message to online people and store them to chat-data-service",
   "dependencies": {
     "@grpc/proto-loader": "^0.5.4",
+    "@types/express": "^4.17.6",
+    "@types/socket.io": "^2.1.8",
     "express": "^4.17.1",
     "grpc": "^1.24.3",
     "socket.io": "^2.3.0"

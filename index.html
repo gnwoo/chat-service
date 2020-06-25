@@ -4,11 +4,14 @@
 <script>
     $(function () {
       var socket = io();
-      socket.emit('connection', {'uid': 'whoimi'})
+      socket.emit('authSocket', {'uid': 'whoimi'})
       socket.on('*', function (msg) {
           $('#messages').append($('<li>').text(msg));
       });
       socket.on('chatMessage', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+      });
+      socket.on('sendMessageReply', function (msg) {
         $('#messages').append($('<li>').text(msg));
       });
       socket.on('fetchChat', function (data) {
@@ -24,9 +27,9 @@
         ])
         }
       )
-      $("#chatMessage").click(
+      $("#sendMessage").click(
         function () {
-          socket.emit('chatMessage', {
+          socket.emit('sendMessage', {
             cId: 1,
             message: {type: 'text', payload: 'ruaruarua'}
           })
@@ -52,7 +55,7 @@
       <input id="e" autocomplete="off" /><input id="c" autocomplete="off" /><input id="m" autocomplete="off" /><button>Send</button>
     </form> -->
     <div id="fetchChat">fetchChat</div>
-<div id="chatMessage">chatMessage</div>
+<div id="sendMessage">chatMessage</div>
 <div id="connection">connection</div>
 
   </body>
